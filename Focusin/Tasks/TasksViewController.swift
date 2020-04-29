@@ -30,7 +30,7 @@ class TasksViewController: NSViewController {
     init(nibName: String, bundle: Bundle?, popover: NSPopover, pomodoroView: PomodoroViewController) {
         self.popoverView = popover
         self.pomodoroView = pomodoroView
-        super.init(nibName: nibName, bundle: bundle)!
+        super.init(nibName: NSNib.Name(rawValue: nibName), bundle: bundle)
         PlistManager.sharedInstance.startPlistManager()
     }
     
@@ -93,9 +93,9 @@ class TasksViewController: NSViewController {
     /* Toggle the state of a button */
     func toggleButton(_ button: NSButton, status: Bool) {
         if(status) {
-            button.image = NSImage(named: "ok-1")
+            button.image = NSImage(named: NSImage.Name(rawValue: "ok-1"))
         } else {
-            button.image = NSImage(named: "ok")
+            button.image = NSImage(named: NSImage.Name(rawValue: "ok"))
         }
     }
     

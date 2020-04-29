@@ -56,15 +56,19 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         longBreadDuration.integerValue = defaults.integer(forKey: Defaults.longBreakKey)/seconds
         targetPomodoros.integerValue = defaults.integer(forKey: Defaults.targetKey)
         longBreakAfterXPomodoros.integerValue = defaults.integer(forKey: Defaults.longBreakAfterXPomodoros)
-        showNotifications.state = defaults.integer(forKey: Defaults.showNotificationsKey)
+        showNotifications.state = NSControl.StateValue(rawValue: defaults.integer(forKey: Defaults.showNotificationsKey))
         showTimeInBar.integerValue = defaults.integer(forKey: Defaults.showTimeKey)
         startAtLogin.integerValue = defaults.integer(forKey: Defaults.startAtLogin)
     }
     
-    override var windowNibName : String! {
-        return "PreferencesWindowController"
+    override var windowNibName: NSNib.Name {
+        return NSNib.Name(rawValue: "PreferencesWindowController")
     }
     
+//    override var windowNibName : String! {
+//        return "PreferencesWindowController"
+//    }
+//
     /* Save the current settings and close the window */
     @IBAction func savePreferences(_ sender: AnyObject) {
         closedWithButton = true
@@ -90,7 +94,7 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
             defaults.setValue(startAtLogin.state, forKey: Defaults.startAtLogin)
 
             let launcherAppIdentifier = "com.albertoquesada.LauncherApplication"
-            SMLoginItemSetEnabled(launcherAppIdentifier as CFString, startAtLogin.state == NSOnState)
+            SMLoginItemSetEnabled(launcherAppIdentifier as CFString, startAtLogin.state == NSControl.StateValue.on)
             
             closeAndSave()
             self.window?.close()
@@ -107,10 +111,10 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         let myPopup: NSAlert = NSAlert()
         myPopup.messageText = errorTitle
         myPopup.informativeText = text
-        myPopup.alertStyle = NSAlertStyle.warning
+        myPopup.alertStyle = NSAlert.Style.warning
         myPopup.addButton(withTitle: buttonTitle)
         let res = myPopup.runModal()
-        if res == NSAlertFirstButtonReturn {
+        if res == NSApplication.ModalResponse.alertFirstButtonReturn {
             return true
         }
         return false

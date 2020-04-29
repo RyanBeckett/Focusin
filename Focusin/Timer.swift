@@ -32,7 +32,7 @@ class Timer: NSObject {
     }
     
     /* Control the time that the current timer has been running and stop when finished */
-    func timerControl() {
+    @objc func timerControl() {
         if(timeLeft > 0) {
             timeLeft = timeLeft - 1
         } else {

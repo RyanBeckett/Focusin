@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var eventMonitor: EventMonitor? // monitor if the user click outside of the app
     
-    let menu = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    let menu = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     let popover = NSPopover()
     
     let barIcon = "goal-1"
@@ -43,16 +43,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             UserDefaults.standard.set(defaultShortBreakDuration, forKey: Defaults.shortBreakKey)
             UserDefaults.standard.set(defaultLongBreakAfterXPomodoros, forKey: Defaults.longBreakAfterXPomodoros)
             UserDefaults.standard.set(defaultTargetPomodoros, forKey: Defaults.targetKey)
-            UserDefaults.standard.set(NSOnState, forKey: Defaults.showTimeKey)
-            UserDefaults.standard.set(NSOnState, forKey: Defaults.showNotificationsKey)
-            UserDefaults.standard.set(NSOffState, forKey: Defaults.startAtLogin)
+            UserDefaults.standard.set(NSControl.StateValue.on, forKey: Defaults.showTimeKey)
+            UserDefaults.standard.set(NSControl.StateValue.on, forKey: Defaults.showNotificationsKey)
+            UserDefaults.standard.set(NSControl.StateValue.off, forKey: Defaults.startAtLogin)
         }
         
         let launcherAppIdentifier = "com.albertoquesada.LauncherApplication"
-        SMLoginItemSetEnabled(launcherAppIdentifier as CFString, UserDefaults.standard.integer(forKey: Defaults.startAtLogin) == NSOnState)
+        SMLoginItemSetEnabled(launcherAppIdentifier as CFString, UserDefaults.standard.integer(forKey: Defaults.startAtLogin) == NSControl.StateValue.on.rawValue)
         
         var startedAtLogin = false
-        for app in NSWorkspace.shared().runningApplications {
+        for app in NSWorkspace.shared.runningApplications {
             if(app.bundleIdentifier == launcherAppIdentifier) {
                 startedAtLogin = true
                 break
@@ -65,16 +65,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Set the icon for the menu bar
         let button = menu.button
-        let icon = NSImage(named: barIcon)
+        let icon = NSImage(named: NSImage.Name(rawValue: barIcon))
         icon?.size.height = 18
         icon?.size.width = 18
         icon?.isTemplate = true   // normal and dark mode
         button!.image = icon
-        button!.imagePosition = NSCellImagePosition.imageLeft
+        button!.imagePosition = NSControl.ImagePosition.imageLeft
         button!.action = #selector(AppDelegate.togglePopover(_:))
         
         // Show time in menu bar only if user wants it
-        if(UserDefaults.standard.integer(forKey: Defaults.showTimeKey) == NSOnState) {
+        if(UserDefaults.standard.integer(forKey: Defaults.showTimeKey) == NSControl.StateValue.on.rawValue) {
             let pomodoroDefaultDuration = UserDefaults.standard.integer(forKey: Defaults.pomodoroKey)
             button!.title = String(format: timeFormat, pomodoroDefaultDuration/60, pomodoroDefaultDuration%60)
         }
@@ -107,7 +107,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     /* Toggle the popover visibility */
-    func togglePopover(_ sender: AnyObject?) {
+    @objc func togglePopover(_ sender: AnyObject?) {
         if popover.isShown {
             closePopover(sender)
         } else {

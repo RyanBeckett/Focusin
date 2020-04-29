@@ -17,20 +17,24 @@ class AboutWindowController: NSWindowController {
         NSApp.activate(ignoringOtherApps: true)
     }
     
-    override var windowNibName : String! {
-        return "AboutWindowController"
+    override var windowNibName: NSNib.Name {
+        return NSNib.Name(rawValue: "AboutWindowController")
     }
     
+//    override var windowNibName : String! {
+//        return "AboutWindowController"
+//    }
+    
     @IBAction func openIcons8(_ sender: AnyObject) {
-        NSWorkspace.shared().open(URL(string: "http://icons8.com")!)
+        NSWorkspace.shared.open(URL(string: "http://icons8.com")!)
     }
     
     @IBAction func openAlberto(_ sender: AnyObject) {
-        NSWorkspace.shared().open(URL(string: "http://albertoquesada.com")!)
+        NSWorkspace.shared.open(URL(string: "http://albertoquesada.com")!)
     }
     
     @IBAction func getCode(_ sender: AnyObject) {
-        NSWorkspace.shared().open(URL(string: "https://github.com/albertoqa/Focusin")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/albertoqa/Focusin")!)
     }
     
     

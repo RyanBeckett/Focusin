@@ -67,7 +67,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
     init(nibName: String, bundle: Bundle?, button: NSStatusBarButton, popover: NSPopover) {
         self.buttonBar = button
         self.popoverView = popover
-        super.init(nibName: nibName, bundle: bundle)!
+        super.init(nibName: NSNib.Name(rawValue: nibName), bundle: bundle)
     }
     
     required init?(coder: NSCoder) {
@@ -87,8 +87,8 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         circleAnimations = CircleAnimation(popoverRootView: mainView, startButton: startButton, fullPomodoros: fullPomodoros, shortBreak: shortBreak, longBreak: longBreak)
         
         timer = Timer(defaults.integer(forKey: Defaults.pomodoroKey), defaults.integer(forKey: Defaults.shortBreakKey), defaults.integer(forKey: Defaults.longBreakKey))
-        showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSOnState
-        showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSOnState
+        showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSControl.StateValue.on.rawValue
+        showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSControl.StateValue.on.rawValue
         targetPomodoros = defaults.integer(forKey: Defaults.targetKey)
         longBreakAfterXPomodoros = defaults.integer(forKey: Defaults.longBreakAfterXPomodoros)
         resetForPomodoro()
@@ -98,7 +98,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         fullPomodoros.stringValue = zeroPomodoros + defaults.string(forKey: Defaults.targetKey)!
         
         tasksView.contentViewController = TasksViewController(nibName: "TasksViewController", bundle: nil, popover: popoverView, pomodoroView: self)
-        tasksView.behavior = NSPopoverBehavior.transient
+        tasksView.behavior = NSPopover.Behavior.transient
     }
     
     /* Reset the view elements and get them ready for a new pomodoro */
@@ -107,8 +107,8 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         timeLabel.stringValue = String(format: timeFormat, pomodoroDefaultDuration/seconds, pomodoroDefaultDuration%seconds)
         timeLabel.textColor = orange
         circleAnimations.setTimeLayerColor(true)
-        startButton.image = NSImage(named: iconPlayOrange)
-        shortBreak.image = NSImage(named: sofa)
+        startButton.image = NSImage(named: NSImage.Name(rawValue: iconPlayOrange))
+        shortBreak.image = NSImage(named: NSImage.Name(rawValue: sofa))
         reset()
     }
     
@@ -123,8 +123,8 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         timeLabel.stringValue = String(format: timeFormat, breakDefaultDuration/seconds, breakDefaultDuration%seconds)
         timeLabel.textColor = green
         circleAnimations.setTimeLayerColor(false)
-        startButton.image = NSImage(named: iconPlayGreen)
-        shortBreak.image = NSImage(named: sofa)
+        startButton.image = NSImage(named: NSImage.Name(rawValue: iconPlayGreen))
+        shortBreak.image = NSImage(named: NSImage.Name(rawValue: sofa))
         reset()
     }
     
@@ -184,19 +184,19 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
             circleAnimations.pauseLayer(Circles.target)
             updateStatusTimer.invalidate()
             if(isPomodoro) {
-                startButton.image = NSImage(named: iconPlayOrange)
+                startButton.image = NSImage(named: NSImage.Name(rawValue: iconPlayOrange))
             } else {
-                startButton.image = NSImage(named: iconPlayGreen)
+                startButton.image = NSImage(named: NSImage.Name(rawValue: iconPlayGreen))
             }
         } else {
             if(!updateStatusTimer.isValid) {
                 updateStatusTimer = Foundation.Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateCurrentStatus), userInfo: nil, repeats: true)
             }
             if(isPomodoro) {
-                startButton.image = NSImage(named: iconPauseOrange)
+                startButton.image = NSImage(named: NSImage.Name(rawValue: iconPauseOrange))
             } else {
-                startButton.image = NSImage(named: iconPauseGreen)
-                shortBreak.image = NSImage(named: sofaFill)
+                startButton.image = NSImage(named: NSImage.Name(rawValue: iconPauseGreen))
+                shortBreak.image = NSImage(named: NSImage.Name(rawValue: sofaFill))
             }
             isActive = true
             if(timer.unPause(isPomodoro, isLongBreak: isLongBreak())) {
@@ -222,7 +222,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
     }
     
     /* Update the current state of the application. Warn the user when the pomodoro or break finish and ask for the next action*/
-    func updateCurrentStatus() {
+    @objc func updateCurrentStatus() {
         if(timer.timeLeft >= 0 && timer.timer.isValid) {
             timeLabel.stringValue = String(format: timeFormat, timer.timeLeft/seconds, timer.timeLeft%seconds)
             if(showTimeInBar) {
@@ -340,18 +340,18 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
                                  keyEquivalent: "", at: 5)
 
         // TODO this blocks the timer!! Errorrrrrr
-        NSMenu.popUpContextMenu(menu, with: NSApplication.shared().currentEvent!, for: sender as NSButton)
+        NSMenu.popUpContextMenu(menu, with: NSApplication.shared.currentEvent!, for: sender as NSButton)
     }
     
     /* Set to 0 the current full pomodoros completed */
-    func resetFullPomodoros() {
+    @objc func resetFullPomodoros() {
         circleAnimations.resetLayer(Circles.target)
         timer.finishedPomodoros = 0
         fullPomodoros.stringValue = zeroPomodoros + String(targetPomodoros)
     }
     
     /* Open a new window with the preferences of the application */
-    func openPreferences() {
+    @objc func openPreferences() {
         preferencesWindow.showWindow(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
@@ -361,11 +361,11 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         if(!isActive) {
             reloadPreferences()
         } else {
-            self.showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSOnState
+            self.showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSControl.StateValue.on.rawValue
             if(!self.showTimeInBar) {
                 buttonBar.title = ""
             }
-            self.showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSOnState
+            self.showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSControl.StateValue.on.rawValue
             reloadPreferencesOnNextPomodoro = true
         }
     }
@@ -378,21 +378,21 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         timer.longBreakDuration = defaults.integer(forKey: Defaults.longBreakKey)
         timer.timeLeft = timer.pomodoroDuration
         targetPomodoros = defaults.integer(forKey: Defaults.targetKey)
-        self.showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSOnState
-        self.showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSOnState
+        self.showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSControl.StateValue.on.rawValue
+        self.showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSControl.StateValue.on.rawValue
         resetTimer(self)
     }
     
     /* Open a new window with information about the application */
-    func openAbout() {
+    @objc func openAbout() {
         aboutWindow.showWindow(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
     
     /* Close the application */
-    func quitApp() {
+    @objc func quitApp() {
         notificationsHandler.removeAllNotifications()
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
     
     /* Save the current text and lose focus on the NSTextFiel */
