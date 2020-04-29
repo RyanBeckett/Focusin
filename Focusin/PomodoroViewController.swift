@@ -328,16 +328,16 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
 
         let menu = NSMenu()
 
-        menu.insertItem(withTitle: "Reset Full Pomodoros", action: #selector(PomodoroViewController.resetFullPomodoros),
+//        menu.insertItem(withTitle: "Reset Full Pomodoros", action: #selector(PomodoroViewController.resetFullPomodoros),
+//                                 keyEquivalent: "", at: 0)
+//        menu.insertItem(NSMenuItem.separator(), at: 1)
+        menu.insertItem(withTitle: "Settings", action: #selector(PomodoroViewController.openPreferences),
                                  keyEquivalent: "", at: 0)
         menu.insertItem(NSMenuItem.separator(), at: 1)
-        menu.insertItem(withTitle: "Settings", action: #selector(PomodoroViewController.openPreferences),
-                                 keyEquivalent: "", at: 2)
         menu.insertItem(withTitle: "About", action: #selector(PomodoroViewController.openAbout),
-                                 keyEquivalent: "", at: 3)
-        menu.insertItem(NSMenuItem.separator(), at: 4)
+        keyEquivalent: "", at: 2)
         menu.insertItem(withTitle: "Quit", action: #selector(PomodoroViewController.quitApp),
-                                 keyEquivalent: "", at: 5)
+                                 keyEquivalent: "", at: 3)
 
         // TODO this blocks the timer!! Errorrrrrr
         NSMenu.popUpContextMenu(menu, with: NSApplication.shared.currentEvent!, for: sender as NSButton)
@@ -352,6 +352,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
     
     /* Open a new window with the preferences of the application */
     @objc func openPreferences() {
+        popoverView.performClose(nil)
         preferencesWindow.showWindow(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
@@ -385,6 +386,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
     
     /* Open a new window with information about the application */
     @objc func openAbout() {
+        popoverView.performClose(nil)
         aboutWindow.showWindow(nil)
         NSApp.activate(ignoringOtherApps: true)
     }

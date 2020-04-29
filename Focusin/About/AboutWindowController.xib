@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,17 +13,17 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+        <window title="About" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titleVisibility="hidden" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="335" height="442"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="contentRect" x="196" y="240" width="335" height="266"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="335" height="442"/>
+                <rect key="frame" x="0.0" y="0.0" width="335" height="285"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x2s-jh-04P">
-                        <rect key="frame" x="0.0" y="0.0" width="335" height="442"/>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x2s-jh-04P">
+                        <rect key="frame" x="0.0" y="-157" width="335" height="442"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" drawsBackground="YES" id="6Y8-rm-ll1">
                             <font key="font" metaFont="system"/>
@@ -30,18 +31,20 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="deviceWhite"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3n-4w-p9I">
-                        <rect key="frame" x="78" y="345" width="179" height="77"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3n-4w-p9I">
+                        <rect key="frame" x="73" y="203" width="189" height="66"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Focusin" id="ox5-gK-bUW">
-                            <font key="font" metaFont="system" size="53"/>
+                            <font key="font" metaFont="system" size="56"/>
                             <color key="textColor" red="0.36080329019466939" green="0.36460121956513958" blue="0.36460121956513958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJx-v7-odQ">
-                        <rect key="frame" x="20" y="20" width="295" height="48"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="tJx-v7-odQ">
+                        <rect key="frame" x="83" y="8" width="170" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="PhH-iB-gep"/>
+                            <constraint firstAttribute="width" constant="170" id="YE7-Tm-rfC"/>
+                        </constraints>
                         <buttonCell key="cell" type="square" title="Icons by Icons8.com" bezelStyle="shadowlessSquare" image="icons8_logo" imagePosition="left" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Vox-li-b5z">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system" size="15"/>
@@ -50,24 +53,21 @@
                             <action selector="openIcons8:" target="-2" id="SLL-xv-bnJ"/>
                         </connections>
                     </button>
-                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QsB-Kq-2HF">
-                        <rect key="frame" x="120" y="249" width="94" height="94"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QsB-Kq-2HF">
+                        <rect key="frame" x="132" y="123" width="72" height="72"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="72" id="5RD-06-jWC"/>
+                            <constraint firstAttribute="height" constant="72" id="qvg-xa-iAd"/>
+                        </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="256x256" id="mDn-xH-UlZ"/>
                     </imageView>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzb-sE-fGY">
-                        <rect key="frame" x="52" y="189" width="230" height="35"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Developed by Alberto Quesada" id="Xs4-W7-SH6">
-                            <font key="font" metaFont="system" size="16"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saL-0E-NaQ">
-                        <rect key="frame" x="95" y="113" width="148" height="48"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="Get the code!" bezelStyle="shadowlessSquare" image="github" imagePosition="left" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7TC-FM-Pgh">
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="saL-0E-NaQ">
+                        <rect key="frame" x="53" y="40" width="230" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="DQI-oV-JsV"/>
+                            <constraint firstAttribute="width" constant="230" id="fEO-Jb-Cw1"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" title="Forked from Alberto Quesada" bezelStyle="shadowlessSquare" image="github" imagePosition="left" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="7TC-FM-Pgh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system" size="15"/>
                         </buttonCell>
@@ -75,28 +75,38 @@
                             <action selector="getCode:" target="-2" id="osa-uq-iB5"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kMN-Er-vg6">
-                        <rect key="frame" x="75" y="184" width="184" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" title="www.albertoquesa.com" bezelStyle="shadowlessSquare" image="Hacking" imagePosition="left" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="F3u-bC-9nP">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system" size="14"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="openAlberto:" target="-2" id="Uv2-NK-PAg"/>
-                        </connections>
-                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzb-sE-fGY">
+                        <rect key="frame" x="66" y="96" width="203" height="19"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Developed by Ryan Beckett" id="Xs4-W7-SH6">
+                            <font key="font" metaFont="system" size="16"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="QsB-Kq-2HF" firstAttribute="centerX" secondItem="se5-gp-TjO" secondAttribute="centerX" id="Aql-cZ-iiS"/>
+                    <constraint firstAttribute="bottom" secondItem="tJx-v7-odQ" secondAttribute="bottom" constant="8" id="Bov-9Z-sU9"/>
+                    <constraint firstItem="QsB-Kq-2HF" firstAttribute="top" secondItem="H3n-4w-p9I" secondAttribute="bottom" constant="8" id="Cx6-8l-Veo"/>
+                    <constraint firstItem="H3n-4w-p9I" firstAttribute="centerX" secondItem="se5-gp-TjO" secondAttribute="centerX" id="Qbd-ED-yr1"/>
+                    <constraint firstAttribute="bottom" secondItem="tJx-v7-odQ" secondAttribute="bottom" constant="8" id="TJe-lS-UeL"/>
+                    <constraint firstItem="dzb-sE-fGY" firstAttribute="top" secondItem="QsB-Kq-2HF" secondAttribute="bottom" constant="8" id="XAv-lY-9Cz"/>
+                    <constraint firstItem="saL-0E-NaQ" firstAttribute="centerX" secondItem="se5-gp-TjO" secondAttribute="centerX" id="iOg-ue-uMg"/>
+                    <constraint firstItem="saL-0E-NaQ" firstAttribute="top" secondItem="dzb-sE-fGY" secondAttribute="bottom" constant="32" id="lKF-gY-cF2"/>
+                    <constraint firstItem="dzb-sE-fGY" firstAttribute="centerX" secondItem="se5-gp-TjO" secondAttribute="centerX" id="n7B-cu-3kx"/>
+                    <constraint firstItem="tJx-v7-odQ" firstAttribute="centerX" secondItem="se5-gp-TjO" secondAttribute="centerX" id="pwt-9m-rhL"/>
+                    <constraint firstItem="tJx-v7-odQ" firstAttribute="top" secondItem="saL-0E-NaQ" secondAttribute="bottom" constant="8" id="rDw-PO-j2X"/>
+                    <constraint firstItem="H3n-4w-p9I" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="16" id="sOb-tq-Ge9"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="260.5" y="317"/>
+            <point key="canvasLocation" x="260.5" y="229"/>
         </window>
     </objects>
     <resources>
         <image name="256x256" width="256" height="256"/>
-        <image name="Hacking" width="24" height="24"/>
         <image name="github" width="96" height="96"/>
         <image name="icons8_logo" width="100" height="100"/>
     </resources>

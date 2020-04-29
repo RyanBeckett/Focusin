@@ -16,7 +16,8 @@ class PopoverRootView: NSView {
         if(self.window != nil) {
             let aFrameView = self.window?.contentView?.superview
             let a = PopoverBackgroundView(frame: aFrameView!.bounds)
-            a.autoresizingMask = [.width, .height]
+//            a.autoresizingMask = [.width, .height]
+            a.autoresizingMask = [.height]
             aFrameView?.addSubview(a, positioned: NSWindow.OrderingMode.below, relativeTo: aFrameView)
         }
         super.viewDidMoveToWindow()

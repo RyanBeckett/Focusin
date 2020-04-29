@@ -22,8 +22,8 @@ open class CircleAnimation {
     let timeLeftShapeLayer = CAShapeLayer()
     let bgTimeLeftShapeLayer = CAShapeLayer()
     var strokeTimeIt = CABasicAnimation(keyPath: "strokeEnd")
-    let radiusBig: CGFloat = 65
-    let widthBig: CGFloat = 5
+    let radiusBig: CGFloat = 40
+    let widthBig: CGFloat = 3
 
     // Target circle (small)
     let targetShapeLayer = CAShapeLayer()
@@ -67,10 +67,10 @@ open class CircleAnimation {
         timeLeftShapeLayer.add(strokeTimeIt, forKey: "timeLeft")
         
         // Animation circle for the target pomodoros
-        drawBgShape(bgTargetShapeLayer, center: CGPoint(x: fullPomodoros.frame.midX, y: fullPomodoros.frame.midY),
-                    radius: radiusSmall, lineWidth: widthSmall)
-        drawShape(targetShapeLayer, center: CGPoint(x: fullPomodoros.frame.midX, y: fullPomodoros.frame.midY),
-                  radius: radiusSmall, lineWidth: widthSmall)
+//        drawBgShape(bgTargetShapeLayer, center: CGPoint(x: fullPomodoros.frame.midX, y: fullPomodoros.frame.midY),
+//                    radius: radiusSmall, lineWidth: widthSmall)
+//        drawShape(targetShapeLayer, center: CGPoint(x: fullPomodoros.frame.midX, y: fullPomodoros.frame.midY),
+//                  radius: radiusSmall, lineWidth: widthSmall)
         
         strokeTargetIt.fromValue = strokeStartValue
         strokeTargetIt.toValue = strokeToValue
@@ -80,17 +80,17 @@ open class CircleAnimation {
         //targetShapeLayer.addAnimation(strokeTargetIt, forKey: "target")
         
         // Static circle for short break
-        drawCompleteCircleSpahe(shortBreakShapeLayer, center: CGPoint(x: shortBreak.frame.midX, y: shortBreak.frame.midY-3),
-                    radius: radiusSmall, lineWidth: widthSmall, color: greenFull)
+//        drawCompleteCircleSpahe(shortBreakShapeLayer, center: CGPoint(x: shortBreak.frame.midX, y: shortBreak.frame.midY-3),
+//                    radius: radiusSmall, lineWidth: widthSmall, color: greenFull)
         
-        // Static circle for long break
-        drawCompleteCircleSpahe(longBreakShapeLayer, center: CGPoint(x: longBreak.frame.midX, y: longBreak.frame.midY),
-                                radius: radiusSmall, lineWidth: widthSmall, color: gray)
+//        // Static circle for long break
+//        drawCompleteCircleSpahe(longBreakShapeLayer, center: CGPoint(x: longBreak.frame.midX, y: longBreak.frame.midY),
+//                                radius: radiusSmall, lineWidth: widthSmall, color: gray)
 
     }
     
     /* Draw a complete static circle */
-    func drawCompleteCircleSpahe(_ layer: CAShapeLayer, center: CGPoint, radius: CGFloat, lineWidth: CGFloat, color: CGColor) {
+    func drawCompleteCircleShape(_ layer: CAShapeLayer, center: CGPoint, radius: CGFloat, lineWidth: CGFloat, color: CGColor) {
         let bez = NSBezierPath()
         bez.appendArc(withCenter: center, radius:
             radius, startAngle: -90.degreesToRadians, endAngle: 360.degreesToRadians, clockwise: true)
