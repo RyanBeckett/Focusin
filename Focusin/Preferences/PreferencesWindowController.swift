@@ -2,8 +2,8 @@
 //  PreferencesWindowController.swift
 //  Pomodoro
 //
-//  Created by Alberto Quesada Aranda on 13/6/16.
-//  Copyright © 2016 Alberto Quesada Aranda. All rights reserved.
+//  Created by Ryan Beckett on 29/4/20.
+//  Copyright © 2020 Ryan Beckett. All rights reserved.
 //
 
 import Cocoa
@@ -17,7 +17,6 @@ protocol PreferencesDelegate {
 class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     
     var delegate: PreferencesDelegate?
-    
     let defaults = UserDefaults.standard
     
     @IBOutlet weak var pomodoroDuration: NSTextField!
@@ -27,20 +26,19 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     @IBOutlet weak var showNotifications: NSButton!
     @IBOutlet weak var showTimeInBar: NSButton!
     @IBOutlet weak var startAtLogin: NSButton!
-    
     @IBOutlet weak var longBreadDuration: NSTextField!
     var closedWithButton: Bool = false
     let seconds: Int = 60
     
     let errorTitle = "Invalid value"
     let buttonTitle = "Ok"
-    let errorPomodoro = "Pomodoro duration must be between 1 - 500"
-    let errorBreak = "Break duration must be between 1 - 500"
+    let errorPomodoro = "Pomodoro duration must be between 1 - 60"
+    let errorBreak = "Break durations must be between 1 - 60"
     let errorTarget = "Target pomodoros must be between 1 - 99"
     let errorLongBreak = "Long break must be set between 1 - 99"
     
     let MIN_TIME = 1
-    let MAX_TIME = 500
+    let MAX_TIME = 60
     let MIN_TARGET = 1
     let MAX_TARGET = 99
     
@@ -49,8 +47,14 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         self.window?.center()
         self.window?.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
-        
-        /* Load preferred settings */
+        loadPreferredSettings()
+    }
+    
+    override var windowNibName: NSNib.Name {
+        return NSNib.Name(rawValue: "PreferencesWindowController")
+    }
+    
+    func loadPreferredSettings() {
         pomodoroDuration.integerValue = defaults.integer(forKey: Defaults.pomodoroKey)/seconds
         shortBreakDuration.integerValue = defaults.integer(forKey: Defaults.shortBreakKey)/seconds
         longBreadDuration.integerValue = defaults.integer(forKey: Defaults.longBreakKey)/seconds
@@ -61,28 +65,20 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
         startAtLogin.integerValue = defaults.integer(forKey: Defaults.startAtLogin)
     }
     
-    override var windowNibName: NSNib.Name {
-        return NSNib.Name(rawValue: "PreferencesWindowController")
-    }
-    
     
     /* Show an alert to the user */
     func dialogError(_ text: String) -> Bool {
-        let myPopup: NSAlert = NSAlert()
-        myPopup.messageText = errorTitle
-        myPopup.informativeText = text
-        myPopup.alertStyle = NSAlert.Style.warning
-        myPopup.addButton(withTitle: buttonTitle)
-        let res = myPopup.runModal()
-        if res == NSApplication.ModalResponse.alertFirstButtonReturn {
-            return true
-        }
+        let alertDialogError: NSAlert = NSAlert()
+        alertDialogError.messageText = errorTitle
+        alertDialogError.informativeText = text
+        alertDialogError.alertStyle = NSAlert.Style.warning
+        alertDialogError.addButton(withTitle: buttonTitle)
+        alertDialogError.runModal()
         return false
     }
     
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         if !isValidSettings(){
-            self.dialogError(errorBreak)
             return false
         }
         saveSettings()
@@ -92,15 +88,15 @@ class PreferencesWindowController: NSWindowController, NSWindowDelegate {
     
     func isValidSettings() -> Bool{
         if(pomodoroDuration.integerValue < MIN_TIME || pomodoroDuration.integerValue > MAX_TIME) {
-            return false
+            return dialogError(errorPomodoro)
         } else if(shortBreakDuration.integerValue < MIN_TIME || shortBreakDuration.integerValue > MAX_TIME) {
-            return false
+            return dialogError(errorBreak)
         } else if(longBreadDuration.integerValue < MIN_TIME || longBreadDuration.integerValue > MAX_TIME) {
-            return false
+            return dialogError(errorBreak)
         } else if(targetPomodoros.integerValue < MIN_TARGET || targetPomodoros.integerValue > MAX_TARGET) {
-            return false
+            return dialogError(errorTarget)
         } else if(longBreakAfterXPomodoros.integerValue < MIN_TARGET || longBreakAfterXPomodoros.integerValue > MAX_TARGET) {
-            return false
+            return dialogError(errorLongBreak)
         }
         return true
     }
