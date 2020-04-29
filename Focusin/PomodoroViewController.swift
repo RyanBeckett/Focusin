@@ -328,16 +328,16 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
 
         let menu = NSMenu()
 
-//        menu.insertItem(withTitle: "Reset Full Pomodoros", action: #selector(PomodoroViewController.resetFullPomodoros),
-//                                 keyEquivalent: "", at: 0)
-//        menu.insertItem(NSMenuItem.separator(), at: 1)
-        menu.insertItem(withTitle: "Settings", action: #selector(PomodoroViewController.openPreferences),
+        menu.insertItem(withTitle: "Reset Completed", action: #selector(PomodoroViewController.resetFullPomodoros),
                                  keyEquivalent: "", at: 0)
         menu.insertItem(NSMenuItem.separator(), at: 1)
+        menu.insertItem(withTitle: "Settings", action: #selector(PomodoroViewController.openPreferences),
+                                 keyEquivalent: "", at: 2)
+        menu.insertItem(NSMenuItem.separator(), at: 3)
         menu.insertItem(withTitle: "About", action: #selector(PomodoroViewController.openAbout),
-        keyEquivalent: "", at: 2)
+        keyEquivalent: "", at: 4)
         menu.insertItem(withTitle: "Quit", action: #selector(PomodoroViewController.quitApp),
-                                 keyEquivalent: "", at: 3)
+                                 keyEquivalent: "", at: 5)
 
         // TODO this blocks the timer!! Errorrrrrr
         NSMenu.popUpContextMenu(menu, with: NSApplication.shared.currentEvent!, for: sender as NSButton)
@@ -345,8 +345,10 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
     
     /* Set to 0 the current full pomodoros completed */
     @objc func resetFullPomodoros() {
-//        circleAnimations.resetLayer(Circles.target)
         timer.finishedPomodoros = 0
+    }
+    
+    func resetTargetPomodoroCount() {
         fullPomodoros.stringValue = zeroPomodoros + String(targetPomodoros)
     }
     
@@ -382,7 +384,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         self.showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSControl.StateValue.on.rawValue
         self.showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSControl.StateValue.on.rawValue
         resetTimer(self)
-        self.resetFullPomodoros()
+        resetTargetPomodoroCount()
     }
     
     /* Open a new window with information about the application */
