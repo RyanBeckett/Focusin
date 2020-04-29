@@ -345,7 +345,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
     
     /* Set to 0 the current full pomodoros completed */
     @objc func resetFullPomodoros() {
-        circleAnimations.resetLayer(Circles.target)
+//        circleAnimations.resetLayer(Circles.target)
         timer.finishedPomodoros = 0
         fullPomodoros.stringValue = zeroPomodoros + String(targetPomodoros)
     }
@@ -382,6 +382,7 @@ class PomodoroViewController: NSViewController, PreferencesDelegate, Notificatio
         self.showTimeInBar = defaults.integer(forKey: Defaults.showTimeKey) == NSControl.StateValue.on.rawValue
         self.showNotifications = defaults.integer(forKey: Defaults.showNotificationsKey) == NSControl.StateValue.on.rawValue
         resetTimer(self)
+        self.resetFullPomodoros()
     }
     
     /* Open a new window with information about the application */
